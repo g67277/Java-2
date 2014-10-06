@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Java 2 Test 1</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string-array name="games">
+        <item>Call of Duty: Advanced Warefare</item>
+        <item>Forza Horizon 2</item>
+        <item>Battlefield Hardline</item>
+        <item>Grand Theft Auto V</item>
+        <item>Assassin\'s Creed Unity</item>
+        <item>Far Cry 4</item>
+        <item>Driveclub</item>
+        <item>Tom Clancy\'s The Division</item>
+    </string-array>
+
+</resources>
