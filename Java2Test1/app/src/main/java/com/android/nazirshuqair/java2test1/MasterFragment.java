@@ -1,35 +1,32 @@
 package com.android.nazirshuqair.java2test1;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Fragment;
-import android.app.ListFragment;
-import android.nfc.Tag;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by nazirshuqair on 10/5/14.
  */
 public class MasterFragment extends Fragment {
 
-    //Tag to identify the fragment
+        //Tag to identify the fragment
     public static final String TAG = "MasterFragment.TAG";
 
     //ListView for the games
-    ListView gamesList;
+    ListView movieList;
+    ArrayList<String> dynamicList;
 
+    EditText et;
 
     //This is to create a new instance of the fragment
     public static MasterFragment newInstance() {
@@ -38,7 +35,7 @@ public class MasterFragment extends Fragment {
     }
 
     public interface MasterClickListener {
-        public void displayText(String _text, int position);
+        public void retriveData(String _text);
     }
 
     private MasterClickListener mListener;
@@ -59,12 +56,24 @@ public class MasterFragment extends Fragment {
                              Bundle savedInstanceState) {
         //Connecting the view
         View myFragmentView = inflater.inflate(R.layout.master_fragment, container, false);
-        //Connecting the edittexxt
-        EditText et = (EditText) myFragmentView.findViewById(R.id.user_input);
+        //Connecting the edittext
+        et = (EditText) myFragmentView.findViewById(R.id.user_input);
+        Button submitBtn = (Button) myFragmentView.findViewById(R.id.submit);
+        submitBtn.setOnClickListener(new Button.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                dynamicList.add(et.getText().toString());
+                movieList.invalidateViews();
+                mListener.retriveData(et.getText().toString());
+            }
+        });
         //Connecting the ListView
-        gamesList = (ListView) myFragmentView.findViewById(R.id.games_list);
+        movieList = (ListView) myFragmentView.findViewById(R.id.games_list);
         return myFragmentView;
     }
+
+
 
 
     @Override
@@ -72,19 +81,23 @@ public class MasterFragment extends Fragment {
         super.onActivityCreated(_savedInstanceState);
 
         //Updating the games list data
-        String[] games = getResources().getStringArray(R.array.games);
+        String[] games = getResources().getStringArray(R.array.movies);
+        dynamicList = new ArrayList<String>();
+
+        for (int i = 0; i < games.length; i++){
+            dynamicList.add(games[i]);
+        }
 
         //creating an adapter to populate the listview
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, games);
-        gamesList.setAdapter(adapter);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, dynamicList);
+        movieList.setAdapter(adapter);
 
-        gamesList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        movieList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 //Call the displayDetails method and pass the adapter view and position
                 //to populate details elements
-                Toast.makeText(getActivity(), (String) adapterView.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
-                mListener.displayText((String) adapterView.getItemAtPosition(position), position);
+                mListener.retriveData((String) adapterView.getItemAtPosition(position));
             }
         });
     }

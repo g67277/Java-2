@@ -4,10 +4,16 @@ android {
     compileSdkVersion 20
     buildToolsVersion "20.0.0"
 
+    packagingOptions{
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+    }
+
     defaultConfig {
         applicationId "com.android.nazirshuqair.java2test1"
         minSdkVersion 14
-        targetSdkVersion 20
+        targetSdkVersion 19
         versionCode 1
         versionName "1.0"
     }
@@ -21,4 +27,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.mashape.unirest:unirest-java:1.3.22'
+    compile 'com.jakewharton:butterknife:5.1.2'
+    compile files('libs/android-smart-image-view-1.0.0.jar')
 }
