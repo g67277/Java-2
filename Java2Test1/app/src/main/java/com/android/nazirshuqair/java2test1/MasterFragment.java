@@ -63,6 +63,7 @@ public class MasterFragment extends Fragment {
 
             @Override
             public void onClick(View view) {
+                //need to fix this!!
                 dynamicList.add(et.getText().toString());
                 movieList.invalidateViews();
                 mListener.retriveData(et.getText().toString());

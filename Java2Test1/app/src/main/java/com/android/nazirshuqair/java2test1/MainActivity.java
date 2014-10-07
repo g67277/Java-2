@@ -126,7 +126,6 @@ public class MainActivity extends Activity implements MasterFragment.MasterClick
                 Toast.makeText(MainActivity.this, "Can't Connect", Toast.LENGTH_LONG).show();
                 return;
             }
-            Log.i(LOGTAG, result);
 
             try {
                 cacheData(result);
