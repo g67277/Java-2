@@ -1,13 +1,22 @@
 package com.android.nazirshuqair.java2test1;
 
+import android.app.ActionBar;
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.Preference;
+import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,11 +39,17 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class MainActivity extends Activity implements MasterFragment.MasterClickListener {
+public class MainActivity extends Activity implements MasterFragment.MasterClickListener, SettingsFragment.PrefClickListener {
 
     static final String LOGTAG = "Project Log:";
 
     List<Movies> moviesList;
+
+    SharedPreferences defaultPrefs;
+    ConnectivityManager cm;
+
+    boolean cellBoolean;
+    boolean offlineMode;
 
     String fileName;
     @Override
@@ -42,9 +57,15 @@ public class MainActivity extends Activity implements MasterFragment.MasterClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ActionBar bar = getActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ffff0912")));
+
+        defaultPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
         if(savedInstanceState == null) {
             MasterFragment frag = MasterFragment.newInstance();
             getFragmentManager().beginTransaction().replace(R.id.container1, frag, MasterFragment.TAG).commit();
+
         }
 
         if (!isOnline()){
@@ -53,36 +74,51 @@ public class MainActivity extends Activity implements MasterFragment.MasterClick
         }
     }
 
+
     @Override
     public void retriveData(String _text){
 
         fileName = _text;
 
-        if (isOnline()){
-            String userEntry = _text.replaceAll("\\s","+");
-            String apiURL1 = "http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=sa9xnrpreedwhbcktqst2hks&q=";
-            String apiURL2 = "&page_limit=1";
-            String apiRequestURL = apiURL1 + userEntry + apiURL2;
-            Log.i(LOGTAG, apiRequestURL);
-            requestData(apiRequestURL);
-        }else {
-            String result = null;
+        //mobile
+        NetworkInfo.State mobile = cm.getNetworkInfo(0).getState();
+        cellBoolean = defaultPrefs.getBoolean("networkOption", true);
+        Log.i(LOGTAG, String.valueOf(cellBoolean));
+        offlineMode = defaultPrefs.getBoolean("offlineMode", false);
 
-            try {
-                result = readCache(fileName);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if ((mobile == NetworkInfo.State.CONNECTED || mobile == NetworkInfo.State.CONNECTING) && !cellBoolean) {
+            Toast.makeText(this, "Please connect to a WiFi network, or change your settings", Toast.LENGTH_SHORT).show();
+        } else{
 
-            if (result == null){
-                Toast.makeText(this, "You're Offline and the Movie is not Cached", Toast.LENGTH_SHORT).show();
+            if (isOnline() && !offlineMode){
+                String userEntry = _text.replaceAll("\\s","+");
+                String apiURL1 = "http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=sa9xnrpreedwhbcktqst2hks&q=";
+                String apiURL2 = "&page_limit=1";
+                String apiRequestURL = apiURL1 + userEntry + apiURL2;
+                Log.i(LOGTAG, apiRequestURL);
+                requestData(apiRequestURL);
             }else {
-                moviesList = JSONParser.parseFeed(result);
-                updateDisplay();
+                String result = null;
 
+                try {
+                    result = readCache(fileName);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                if (result == null){
+                    if (offlineMode){
+                        Toast.makeText(this, "You're in Offline Mode and the Movie is not Cached", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(this, "You're Offline and the Movie is not Cached", Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    moviesList = JSONParser.parseFeed(result);
+                    updateDisplay();
+
+                }
             }
         }
-
     }
 
     private void requestData(String uri){
@@ -94,15 +130,59 @@ public class MainActivity extends Activity implements MasterFragment.MasterClick
 
     protected boolean isOnline(){
 
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
 
         if (netInfo != null && netInfo.isConnectedOrConnecting()){
+
             return true;
         }else {
             return false;
         }
+
+
     }
+
+    @Override
+    public void syncNetworkPref(boolean b) {
+
+        // Get a new editor
+        SharedPreferences.Editor edit = defaultPrefs.edit();
+
+        edit.putBoolean("networkOption", b);
+
+        edit.apply();
+
+    }
+
+    @Override
+    public void syncOfflinePref(boolean b) {
+
+        // Get a new editor
+        SharedPreferences.Editor edit = defaultPrefs.edit();
+
+        edit.putBoolean("offlineMode", b);
+
+        edit.apply();
+    }
+
+    @Override
+    public void clearCache() {
+
+        File dir = getBaseContext().getFilesDir();
+
+        if (dir.isDirectory()) {
+            String[] children = dir.list();
+
+            for (int i = 0; i < children.length; i++) {
+                new File(dir, children[i]).delete();
+            }
+
+            Toast.makeText(this, "Cache Clear", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
 
     private class MyTask extends AsyncTask<String, String, String>{
 
@@ -151,6 +231,8 @@ public class MainActivity extends Activity implements MasterFragment.MasterClick
         fos.close();
     }
 
+
+
     public String readCache (String _fileName) throws IOException {
 
         File file = getBaseContext().getFileStreamPath(_fileName);
@@ -185,7 +267,11 @@ public class MainActivity extends Activity implements MasterFragment.MasterClick
 
             for (Movies movies : moviesList){
                 title = movies.getTitle();
-                description = movies.getDescription();
+                if (movies.getDescription().length() < 1){
+                    description = "Sorry, Summery is not available";
+                }else {
+                    description = movies.getDescription();
+                }
                 star = movies.getStar();
                 rating = movies.getRating();
                 year =  movies.getYear();
@@ -219,6 +305,12 @@ public class MainActivity extends Activity implements MasterFragment.MasterClick
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.container2, new SettingsFragment());
+            ft.commit();
+
             return true;
         }
         return super.onOptionsItemSelected(item);

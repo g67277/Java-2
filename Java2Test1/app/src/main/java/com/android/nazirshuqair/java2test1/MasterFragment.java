@@ -24,7 +24,6 @@ public class MasterFragment extends Fragment {
 
     //ListView for the games
     ListView movieList;
-    ArrayList<String> dynamicList;
 
     EditText et;
 
@@ -64,8 +63,7 @@ public class MasterFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //need to fix this!!
-                dynamicList.add(et.getText().toString());
-                movieList.invalidateViews();
+
                 mListener.retriveData(et.getText().toString());
             }
         });
@@ -83,14 +81,9 @@ public class MasterFragment extends Fragment {
 
         //Updating the games list data
         String[] games = getResources().getStringArray(R.array.movies);
-        dynamicList = new ArrayList<String>();
-
-        for (int i = 0; i < games.length; i++){
-            dynamicList.add(games[i]);
-        }
 
         //creating an adapter to populate the listview
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, dynamicList);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, games);
         movieList.setAdapter(adapter);
 
         movieList.setOnItemClickListener(new AdapterView.OnItemClickListener() {

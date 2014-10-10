@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.nazirshuqair.java2test1.textViewHelper.AutoResizeTextView;
 import com.loopj.android.image.SmartImageView;
 
 import org.w3c.dom.Text;
@@ -72,17 +73,22 @@ public class DetailFragment extends Fragment {
 
     public void setDisplayText(String _title, String _description, String _star, int _rating, int _year) {
 
-        TextView titleView = (TextView)getView().findViewById(R.id.title_name);
-        TextView descriptionView = (TextView)getView().findViewById(R.id.descriptions_view);
-        TextView starView = (TextView)getView().findViewById(R.id.star_view);
-        TextView ratingView = (TextView)getView().findViewById(R.id.rating_view);
-        TextView yearView = (TextView)getView().findViewById(R.id.year_view);
+        AutoResizeTextView titleView = (AutoResizeTextView)getView().findViewById(R.id.title_name);
+        AutoResizeTextView descriptionView = (AutoResizeTextView)getView().findViewById(R.id.descriptions_view);
+        AutoResizeTextView starView = (AutoResizeTextView)getView().findViewById(R.id.star_view);
+        AutoResizeTextView ratingView = (AutoResizeTextView)getView().findViewById(R.id.rating_view);
+        AutoResizeTextView yearView = (AutoResizeTextView)getView().findViewById(R.id.year_view);
 
         titleView.setText(_title);
-        descriptionView.setText(_description);
-        starView.setText(_star);
+        titleView.resizeText();
+        descriptionView.setText("Descritption: " + _description);
+        descriptionView.resizeText();
+        starView.setText("Star: \n" + _star);
+        starView.resizeText();
         ratingView.setText(String.valueOf(_rating));
-        yearView.setText(String.valueOf(_year));
+        ratingView.resizeText();
+        yearView.setText(String.valueOf("Year: \n" + _year));
+        yearView.resizeText();
     }
 
 }

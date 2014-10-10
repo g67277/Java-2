@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Network Options" >
+
+
+        <SwitchPreference
+            android:key="online_options"
+            android:title="Cellular"/>
+
+        <SwitchPreference
+            android:key="offline"
+            android:title="Offline mode"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Cache Option">
+
+        <Preference
+            android:key="clear_data"
+            android:title="Clear Cache"
+            android:summary="This will clear all local app cache"/>
+
+    </PreferenceCategory>
+
+
+</PreferenceScreen>
