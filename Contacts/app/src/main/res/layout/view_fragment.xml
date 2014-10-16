@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:layout_width="250dp"
+        android:layout_height="180dp"
+        android:id="@+id/name_text_view"
+        android:hint="Name"
+        android:gravity="center"
+        android:layout_marginTop="27dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:id="@+id/num_text_view"
+        android:hint="Phone Number"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:inputType="textPhonetic"
+        android:phoneNumber="true"
+        android:singleLine="true" />
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:id="@+id/email_text_view"
+        android:hint="Email Address"
+        android:layout_below="@+id/num_text_view"
+        android:layout_centerHorizontal="true"
+        android:inputType="textEmailAddress" />
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:id="@+id/relation_text_view"
+        android:hint="Relationship"
+        android:layout_below="@+id/email_text_view"
+        android:layout_centerHorizontal="true"
+        android:inputType="text"
+        android:singleLine="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="M"
+        android:id="@+id/message_button"
+        android:layout_alignTop="@+id/num_text_view"
+        android:layout_alignRight="@+id/num_text_view"
+        android:layout_alignEnd="@+id/num_text_view"
+        android:layout_above="@+id/email_text_view" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="E"
+        android:id="@+id/email_button"
+        android:layout_alignTop="@+id/email_text_view"
+        android:layout_alignRight="@+id/email_text_view"
+        android:layout_alignEnd="@+id/email_text_view"
+        android:layout_above="@+id/relation_text_view" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="C"
+        android:id="@+id/call_button"
+        android:layout_alignTop="@+id/num_text_view"
+        android:layout_toLeftOf="@+id/message_button"
+        android:layout_toStartOf="@+id/message_button"
+        android:layout_above="@+id/email_text_view" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="X"
+        android:id="@+id/delete_button"
+        android:layout_below="@+id/relation_text_view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="29dp"/>
+
+</RelativeLayout>
