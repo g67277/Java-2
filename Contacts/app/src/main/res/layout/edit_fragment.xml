@@ -10,20 +10,26 @@
         android:id="@+id/name_text_edit"
         android:hint="Name"
         android:gravity="center"
-        android:layout_marginTop="27dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignRight="@+id/num_text_edit"
+        android:layout_alignEnd="@+id/num_text_edit"
+        android:layout_alignLeft="@+id/num_text_edit"
+        android:layout_alignStart="@+id/num_text_edit"
+        android:textColor="#7d7d7d"
+        android:textSize="40sp" />
 
     <EditText
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:id="@+id/num_text_edit"
         android:hint="Phone Number"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
         android:phoneNumber="false"
         android:singleLine="true"
-        android:inputType="phone" />
+        android:inputType="phone"
+        android:layout_below="@+id/name_text_edit"
+        android:layout_alignLeft="@+id/email_text_edit"
+        android:layout_alignStart="@+id/email_text_edit"
+        android:textSize="20sp" />
 
     <EditText
         android:layout_width="300dp"
@@ -32,7 +38,8 @@
         android:hint="Email Address"
         android:layout_below="@+id/num_text_edit"
         android:layout_centerHorizontal="true"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:textSize="20sp" />
 
     <EditText
         android:layout_width="300dp"
@@ -42,15 +49,18 @@
         android:layout_below="@+id/email_text_edit"
         android:layout_centerHorizontal="true"
         android:inputType="text"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:textSize="20sp" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:text="OK"
+        android:textColor="#FFFFFF"
         android:id="@+id/submit_button"
-        android:layout_alignParentBottom="true"
+        android:background="@drawable/okbutton"
+        android:layout_below="@+id/relation_text_edit"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="34dp" />
+        android:layout_marginTop="30dp" />
 
 </RelativeLayout>

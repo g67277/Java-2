@@ -7,11 +7,18 @@
 
     <TextView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/contName"/>
+        android:layout_height="50dp"
+        android:id="@+id/contName"
+        android:textSize="40sp"
+        android:textColor="#7d7d7d"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp" />
 
     <TextView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/contNum"/>
+        android:layout_height="35dp"
+        android:id="@+id/contNum"
+        android:textSize="25sp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp" />
 </LinearLayout>

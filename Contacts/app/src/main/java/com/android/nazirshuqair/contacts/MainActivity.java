@@ -44,7 +44,7 @@ public class MainActivity extends Activity implements MasterFragment.MasterClick
         setContentView(R.layout.activity_main);
 
         ActionBar bar = getActionBar();
-        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ffff0912")));
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#a6d815")));
 
         MasterFragment frag = null;
         if(savedInstanceState == null) {

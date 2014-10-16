@@ -19,7 +19,7 @@ public class DetailActivity extends Activity implements EditFragment.MasterClick
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ffff0912")));
+        getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#a6d815")));
 
         Intent intent = getIntent();
 
