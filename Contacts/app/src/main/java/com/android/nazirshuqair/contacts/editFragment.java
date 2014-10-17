@@ -84,6 +84,7 @@ public class EditFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+
                 String phoneNumPlain = numEdit.getText().toString().replaceAll("\\D", "");
                 String formattedPhone = String.valueOf(phoneNumPlain).replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1)-$2-$3");
                 mListener.pushData(nameEdit.getText().toString(), formattedPhone,
