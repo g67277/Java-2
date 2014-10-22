@@ -7,6 +7,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -78,7 +80,7 @@ public class EditFragment extends Fragment {
         });
 
 
-        Button submitBtn = (Button) myFragmentView.findViewById(R.id.submit_button);
+        /*Button submitBtn = (Button) myFragmentView.findViewById(R.id.submit_button);
         submitBtn.setOnClickListener(new Button.OnClickListener(){
 
             @Override
@@ -90,11 +92,25 @@ public class EditFragment extends Fragment {
                 mListener.pushData(nameEdit.getText().toString(), formattedPhone,
                         emailEdit.getText().toString(), relationEdit.getText().toString());
             }
-        });
+        });*/
         //Connecting the ListView
         return myFragmentView;
     }
 
+    public void saveItem(){
+
+        String phoneNumPlain = numEdit.getText().toString().replaceAll("\\D", "");
+        String formattedPhone = String.valueOf(phoneNumPlain).replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1)-$2-$3");
+        mListener.pushData(nameEdit.getText().toString(), formattedPhone,
+                emailEdit.getText().toString(), relationEdit.getText().toString());
+    }
+
+    public void clearForm(){
+        nameEdit.setText("");
+        numEdit.setText("");
+        emailEdit.setText("");
+        relationEdit.setText("");
+    }
     boolean isEmailValid(CharSequence email) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }

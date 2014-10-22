@@ -4,7 +4,11 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -19,6 +23,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Objects;
 
 /**
@@ -38,6 +43,13 @@ public class MasterFragment extends Fragment {
     ListView contactsView;
 
     EditText et;
+
+    private ActionMode mActionMode;
+    private int mContactSelected = -1;
+    SimpleAdapter adapter;
+
+    //This is a test, probably need to change
+    private boolean longClick = false;
 
     public ArrayList<HashMap<String, Object>> mContactList = new ArrayList<HashMap<String, Object>>();
 
@@ -71,6 +83,7 @@ public class MasterFragment extends Fragment {
 
     public interface MasterClickListener {
         public void retriveData(HashMap<String, Object> item, int position);
+        public void deleteContactFromFragment(String name) throws IOException, ClassNotFoundException;
     }
 
     private MasterClickListener mListener;
@@ -94,6 +107,8 @@ public class MasterFragment extends Fragment {
 
         //Connecting the ListView
         contactsView = (ListView) myFragmentView.findViewById(R.id.contactListView);
+
+
         return myFragmentView;
     }
 
@@ -117,18 +132,83 @@ public class MasterFragment extends Fragment {
         };
 
         //creating an adapter to populate the listview
-        SimpleAdapter adapter = new SimpleAdapter(getActivity(), mContactList,  R.layout.list_item, keys, views);
+        adapter = new SimpleAdapter(getActivity(), mContactList,  R.layout.list_item, keys, views);
         contactsView.setAdapter(adapter);
+
+        contactsView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if (mActionMode != null){
+                    return false;
+                }
+                mContactSelected = i;
+                mActionMode = getActivity().startActionMode(mActionModeCallBack);
+
+                longClick = true;
+
+                return false;
+            }
+        });
 
         contactsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 //Call the displayDetails method and pass the adapter view and position
                 //to populate details elements
-                mListener.retriveData(mContactList.get(position), position);
+                if (!longClick) {
+                    mListener.retriveData(mContactList.get(position), position);
+                }
+                longClick = false;
             }
         });
     }
+
+    //Contextual Actionbar Listener
+
+    private ActionMode.Callback mActionModeCallBack = new ActionMode.Callback(){
+
+        @Override
+        public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+            MenuInflater inflater = actionMode.getMenuInflater();
+            inflater.inflate(R.menu.delete_bar, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode actionMode, MenuItem item) {
+
+            HashMap<String, Object> incomingObject = (HashMap<String, Object>) adapter.getItem(mContactSelected);
+
+            switch (item.getItemId()){
+
+                case R.id.contactDelete:
+                    try {
+                        mListener.deleteContactFromFragment(String.valueOf(incomingObject.get(CNAME)));
+                        actionMode.finish();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    return true;
+                default:
+                    return false;
+            }
+
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode actionMode) {
+
+            mActionMode = null;
+        }
+    };
 
 
 }

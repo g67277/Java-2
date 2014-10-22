@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 /**
  * Created by nazirshuqair on 10/13/14.
  */
 public class DetailActivity extends Activity implements EditFragment.MasterClickListener, ViewFragment.DeleteListener {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,41 @@ public class DetailActivity extends Activity implements EditFragment.MasterClick
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        EditFragment frag = (EditFragment)getFragmentManager().findFragmentByTag(EditFragment.TAG);
+
+        MenuItem saveItem = menu.add("Save");
+        saveItem.setShowAsAction(1);
+
+
+        saveItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                EditFragment frag = (EditFragment)getFragmentManager().findFragmentByTag(EditFragment.TAG);
+
+                frag.saveItem();
+
+                return false;
+            }
+        });
+        MenuItem resetForm = menu.add("Reset");
+        resetForm.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                EditFragment frag = (EditFragment)getFragmentManager().findFragmentByTag(EditFragment.TAG);
+
+                frag.clearForm();
+
+                return false;
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
+
     }
 
     @Override
