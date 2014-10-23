@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">News</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="action_settings">Settings</string>
+
+    <string-array name="recent_news">
+        <item>White House fence jumper detained</item>
+        <item>UNC report: Years of academic fraud</item>
+        <item>CDC: No more Ebola in nurse</item>
+        <item>Nurse\'s dog negative for Ebola </item>
+        <item>Inside Ebola patient\'s apartment</item>
+        <item>FBI: U.S. girls wanted to join ISIS</item>
+        <item>Did ISIS intercept U.S. airdrops?</item>
+        <item>Social Security checks going up</item>
+        <item>Google unveils app to fix email</item>
+        <item>Man chisels his way out of elevator</item>
+        <item>Disney\'s new heroine: \'Moana\'</item>
+        <item>Domino\'s Pizza is hot again</item>
+        <item>Who is serial killer suspect?</item>
+        <item>Murdered women: \'Not nobodies\'</item>
+        <item>Blackwater guards guilty in Iraq killings</item>
+        <item>Store pulls \'Breaking Bad\' toys</item>
+        <item>Who wants to secede from Florida?</item>
+    </string-array>
+
+
+</resources>

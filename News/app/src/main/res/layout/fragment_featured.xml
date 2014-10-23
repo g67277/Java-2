@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="10dp"
+            android:text="Canada IDs Suspected Shooter"
+            android:textSize="59dp"
+            android:textStyle="bold"
+            android:textColor="#ffff1b02"
+            android:id="@+id/featuredTitle" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/featured_img" />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="First a soldier guarding a hallowed war memorial was gunned down in Canada's capital. Then shots erupted in the halls of the country's Parliament minutes later. The two shootings in Ottawa Wednesday left lawmakers barricaded inside offices and parts of the city on lockdown for hours as police searched for suspects. Ottawa Police lifted the lockdown Wednesday night and said there was no longer a danger to the public. But many questions remain about the shootings: Who was the gunman? Why did he open fire? And was he acting alone?"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:id="@+id/featuredBody" />
+
+    </LinearLayout>
+</ScrollView>
