@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Little League</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string-array name="team1">
+        <item name="one">Sam</item>
+        <item name="two">Joe</item>
+        <item name="three">Dan</item>
+        <item name="four">Don</item>
+        <item name="five">Bob</item>
+        <item name="six">Rob</item>
+        <item name="seven">Dean</item>
+        <item name="eight">Jack</item>
+        <item name="nine">Daniel</item>
+    </string-array>
+    <string-array name="team2">
+        <item name="one">Mathew</item>
+        <item name="two">Charlie</item>
+        <item name="three">Kelly</item>
+        <item name="four">Clyde</item>
+        <item name="five">Klay</item>
+        <item name="six">Elmar</item>
+        <item name="seven">Tomas</item>
+        <item name="eight">Skyler</item>
+        <item name="nine">Daxter</item>
+    </string-array>
+    <string-array name="team3">
+        <item name="one">Jaime</item>
+        <item name="two">Rio</item>
+        <item name="three">Koby</item>
+        <item name="four">Andrew</item>
+        <item name="five">Jase</item>
+        <item name="six">Rocky</item>
+        <item name="seven">Hans</item>
+        <item name="eight">Luther</item>
+        <item name="nine">Alden</item>
+    </string-array>
+    <string-array name="team4">
+        <item name="one">Lenny</item>
+        <item name="two">Jody</item>
+        <item name="three">Andreas</item>
+        <item name="four">Dylan</item>
+        <item name="five">Fransis</item>
+        <item name="six">Octavo</item>
+        <item name="seven">Haiden</item>
+        <item name="eight">Vasco</item>
+        <item name="nine">Bryant</item>
+    </string-array>
+    <string-array name="team5">
+        <item name="one">Arun</item>
+        <item name="two">Marshall</item>
+        <item name="three">Issac</item>
+        <item name="four">Lennon</item>
+        <item name="five">Barry</item>
+        <item name="six">Chris</item>
+        <item name="seven">Yahir</item>
+        <item name="eight">Cale</item>
+        <item name="nine">Glenn</item>
+    </string-array>
+    <string-array name="team6">
+        <item name="one">Simon</item>
+        <item name="two">Dolly</item>
+        <item name="three">Harper</item>
+        <item name="four">Reed</item>
+        <item name="five">Mohammad</item>
+        <item name="six">Kat</item>
+        <item name="seven">Elmo</item>
+        <item name="eight">Giovani</item>
+        <item name="nine">Elvis</item>
+    </string-array>
+
+
+</resources>
