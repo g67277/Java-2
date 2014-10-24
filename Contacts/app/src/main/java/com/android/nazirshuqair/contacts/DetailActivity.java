@@ -62,31 +62,36 @@ public class DetailActivity extends Activity implements EditFragment.MasterClick
     public boolean onCreateOptionsMenu(Menu menu) {
         EditFragment frag = (EditFragment)getFragmentManager().findFragmentByTag(EditFragment.TAG);
 
-        MenuItem saveItem = menu.add("Save");
-        saveItem.setShowAsAction(1);
 
 
-        saveItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                EditFragment frag = (EditFragment)getFragmentManager().findFragmentByTag(EditFragment.TAG);
+        Intent intent = getIntent();
 
-                frag.saveItem();
+        if (intent.getBooleanExtra("edit", true)) {
+            MenuItem saveItem = menu.add("Save");
+            saveItem.setShowAsAction(1);
 
-                return false;
-            }
-        });
-        MenuItem resetForm = menu.add("Reset");
-        resetForm.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                EditFragment frag = (EditFragment)getFragmentManager().findFragmentByTag(EditFragment.TAG);
+            saveItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    EditFragment frag = (EditFragment) getFragmentManager().findFragmentByTag(EditFragment.TAG);
 
-                frag.clearForm();
+                    frag.saveItem();
 
-                return false;
-            }
-        });
+                    return false;
+                }
+            });
+            MenuItem resetForm = menu.add("Reset");
+            resetForm.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    EditFragment frag = (EditFragment) getFragmentManager().findFragmentByTag(EditFragment.TAG);
+
+                    frag.clearForm();
+
+                    return false;
+                }
+            });
+        }
 
         return super.onCreateOptionsMenu(menu);
 
